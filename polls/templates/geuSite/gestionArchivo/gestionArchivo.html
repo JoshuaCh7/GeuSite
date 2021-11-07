@@ -1,0 +1,103 @@
+{% extends "geuSite/base.html" %}
+{% load static %}
+{% block title %}Gestion de Archivos{% endblock title %}
+{% block titlePage %}Gestion de Archivos{% endblock titlePage %}
+{% block content %}
+<section>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Archivos Registrados</h4>
+                    <div class="col-lg-3">
+                        <button type="button" class="btn btn-block btn-info" data-toggle="modal"
+                                data-target="#modal-ingresar"><i class="fas fa-plus"></i>
+                            Subir Archivo
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table id="tabla" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>Nombre Archivo</th>
+                            <th>Descripcion</th>
+                            <th>Opciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for archivo in archivosRegistrados %}
+                        <tr>
+                            <td>Ejemplo</td>
+                            <td>{{ archivo.nombreArchivo }}</td>
+                            <td>{{ archivo.descripcion }}</td>
+                            <td>
+                                <div class="text-center">
+                                    <button class="updateClient btn btn-warning text-white">
+                                        <!--                                                    onclick="activateUpdateModal('{% url 'inventory:viewUpdateBrand' brand.idBrand %}')">-->
+                                        <i
+                                                class="fas fa-edit"></i>
+                                        Actualizar
+                                    </button>
+                                    <button class="deleteClient btn btn-danger text-white">
+                                        <!--                                                    onclick="activateDeleteModal('{% url 'inventory:viewDeleteBrand' brand.idBrand %}')">-->
+                                        <i
+                                                class="fas fa-trash-alt"></i>
+                                        Eliminar
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{# modal crear #}
+<section>
+    <form method="post" action="#">
+        {% csrf_token %}
+        <div class="modal fade" id="modal-ingresar">
+            <div class="modal-dialog" style="max-width: 600px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Subir Archivo</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Nombre Archivo</label>
+                            <input type="text" class="form-control" name="nombreArchivo"
+                                   placeholder="Ingrese nombre del archivo">
+                            <label>Descripción</label>
+                            <input type="text" class="form-control" name="nombreArchivo"
+                                   placeholder="Ingrese nombre del archivo">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputFile">File input</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="exampleInputFile">
+                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                </div>
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="">Upload</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar archivo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+{% endblock content %}
